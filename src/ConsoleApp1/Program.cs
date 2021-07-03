@@ -1,30 +1,33 @@
 using System;
+using System.Linq;
 using System.Collections.Generic;
 
 namespace ConsoleApp1
 {
-    class Program
+    internal class Program
     {
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
-            Count1(new[] { 1 }, 50);
-
-            void Count1(IEnumerable<int> m, int c)
+            foreach(var v in Ant(1))
             {
-                if (c == 0)
-                    return;
+                Console.Write(v + " ");
+            }
+
+            IEnumerable<int> Ant(int c) => Count1(new[] { 1 }, c);
+
+            IEnumerable<int> Count1(IEnumerable<int> m, int c)
+            {
+                if (c == 0) return m;
 
                 var k = Count(m);
 
-                Console.WriteLine(string.Join(" ", k));
-
-                Count1(k, --c);
+                return Count1(k, --c);
             }
 
             IEnumerable<int> Count(IEnumerable<int> list)
             {
-                int a = -1;
-                int b = 0;
+                var a = -1;
+                var b = 0;
                 foreach (var item in list)
                 {
                     if (a == -1)
@@ -48,5 +51,5 @@ namespace ConsoleApp1
                 yield return b;
             }
         }
-    }                                                                                                                                                                                         
+    }
 }
